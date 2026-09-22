@@ -1,0 +1,10 @@
+{# Hidden until static/js/app.js runs: without JavaScript it can't do anything. #}
+<fieldset class="theme-switch" data-theme-switch hidden>
+  <legend class="sr-only">Color theme</legend>
+  <input class="sr-only" type="radio" name="theme" id="theme-system" value="system" checked>
+  <label for="theme-system">{% include "icons/monitor.svg" %}<span>System</span></label>
+  <input class="sr-only" type="radio" name="theme" id="theme-light" value="light">
+  <label for="theme-light">{% include "icons/sun.svg" %}<span>Light</span></label>
+  <input class="sr-only" type="radio" name="theme" id="theme-dark" value="dark">
+  <label for="theme-dark">{% include "icons/moon.svg" %}<span>Dark</span></label>
+</fieldset>

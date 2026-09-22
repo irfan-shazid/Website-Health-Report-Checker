@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% comment %}
+  Sign-in and error pages. Uses no request context, so the 500 page can render
+  even when the request itself is what failed.
+{% endcomment %}
+
+{% block body %}
+<div class="flex min-h-dvh flex-col">
+  <header class="px-4 pt-8 sm:pt-16">
+    <div class="mx-auto max-w-md">{% include "partials/wordmark.html" %}</div>
+  </header>
+
+  <main id="main" tabindex="-1" class="flex-1 px-4 py-6 focus:outline-none">
+    <div class="mx-auto max-w-md">
+      {% include "partials/messages.html" %}
+      <div class="sheet px-5 py-7 sm:px-8 sm:py-9">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+  </main>
+
+  <footer class="px-4 pb-8">
+    <div class="mx-auto flex max-w-md flex-wrap items-center justify-between gap-4 text-caption text-graphite">
+      <p>Site Health Report</p>
+      {% include "partials/theme_switch.html" %}
+    </div>
+  </footer>
+</div>
+{% endblock %}

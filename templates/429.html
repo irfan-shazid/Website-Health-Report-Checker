@@ -1,0 +1,9 @@
+{% extends "layouts/plain.html" %}
+
+{% block title %}Too many requests{% endblock %}
+
+{% block content %}
+<h1 class="text-h2 font-semibold">Too many requests, please slow down</h1>
+<p class="mt-3 text-graphite">There have been a lot of requests from you in a short time, so we've paused for a moment.</p>
+<p class="mt-3 text-graphite">{% if retry_after %}Try again in {{ retry_after }} second{{ retry_after|pluralize }}.{% else %}Try again in a minute.{% endif %}</p>
+{% endblock %}

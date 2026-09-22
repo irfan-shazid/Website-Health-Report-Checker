@@ -1,0 +1,12 @@
+{% extends "layouts/plain.html" %}
+
+{% block title %}Form expired{% endblock %}
+
+{% block content %}
+<h1 class="text-h2 font-semibold">That form has expired</h1>
+<p class="mt-3 text-graphite">For your security, forms stop working after a while, or when cookies are blocked for this site.</p>
+<p class="mt-3 text-graphite">Go back, reload the page, and try again. If this keeps happening, check that your browser allows cookies here.</p>
+<div class="mt-6 flex flex-wrap gap-3">
+  <a class="btn btn-primary" href="{% url 'dashboard' %}">Go to your scans</a>
+</div>
+{% endblock %}

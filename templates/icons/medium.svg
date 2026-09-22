@@ -1,0 +1,1 @@
+<svg class="{{ cls|default:'size-4' }}" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 .75L15.25 8 8 15.25.75 8z"/></svg>

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="flex min-h-dvh flex-col">
+  <header class="border-b border-rule bg-sheet">
+    <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-8 px-4 py-1 sm:flex-nowrap sm:px-6 sm:py-2">
+      <div class="basis-full sm:basis-auto">{% include "partials/wordmark.html" %}</div>
+      <nav aria-label="Main">
+        <ul class="flex gap-6">
+          <li><a class="nav-link" href="{% url 'dashboard' %}"{% if request.resolver_match.url_name == "dashboard" %} aria-current="page"{% endif %}>Scans</a></li>
+        </ul>
+      </nav>
+      <form class="ml-auto" method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn-plain">Sign out</button>
+      </form>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1" class="flex-1 focus:outline-none">
+    <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+      {% include "partials/messages.html" %}
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+
+  <footer class="border-t border-rule">
+    <div class="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-6 text-caption text-graphite sm:flex-row sm:items-center sm:px-6">
+      <p>Signed in as <span class="font-semibold text-ink">{{ user.get_username }}</span>{% if user.is_staff %} · <a class="link" href="{% url 'admin:index' %}">Administration</a>{% endif %}</p>
+      <div class="sm:ml-auto">{% include "partials/theme_switch.html" %}</div>
+    </div>
+  </footer>
+</div>
+{% endblock %}

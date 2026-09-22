@@ -1,0 +1,590 @@
+@import "tailwindcss" source(none);
+
+@source "../../templates";
+@source "../../static/js";
+
+/* Fonts: self-hosted, SIL Open Font License (see static/fonts/OFL-*.txt). */
+
+@font-face {
+  font-family: "Public Sans";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/public-sans-latin-ext-wght-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Public Sans";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/public-sans-latin-wght-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/ibm-plex-mono-latin-ext-400-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/ibm-plex-mono-latin-ext-500-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Design tokens. Only these colours exist; Tailwind's default palette is removed. */
+
+@theme {
+  --color-*: initial;
+
+  --font-sans: "Public Sans", ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", monospace;
+
+  --text-caption: 0.8125rem;
+  --text-caption--line-height: 1.25rem;
+  --text-small: 0.9375rem;
+  --text-small--line-height: 1.375rem;
+  --text-body: 1rem;
+  --text-body--line-height: 1.5rem;
+  --text-lead: 1.125rem;
+  --text-lead--line-height: 1.75rem;
+  --text-h3: 1.25rem;
+  --text-h3--line-height: 1.75rem;
+  --text-h2: 1.5rem;
+  --text-h2--line-height: 2rem;
+  --text-h1: 1.875rem;
+  --text-h1--line-height: 2.25rem;
+  --text-seal: 7.5rem;
+  --text-seal--line-height: 1;
+}
+
+@theme inline {
+  --color-desk: var(--desk);
+  --color-sheet: var(--sheet);
+  --color-tint: var(--tint);
+  --color-ink: var(--ink);
+  --color-graphite: var(--graphite);
+  --color-rule: var(--rule);
+  --color-control: var(--control);
+  --color-stamp: var(--stamp);
+  --color-stamp-hover: var(--stamp-hover);
+  --color-on-stamp: var(--on-stamp);
+  --color-critical: var(--critical);
+  --color-high: var(--high);
+  --color-medium: var(--medium);
+  --color-low: var(--low);
+  --color-info: var(--info);
+  --color-pass: var(--pass);
+}
+
+/* Light is the default. Dark applies when the visitor chose it, or when their
+   system prefers it and they haven't chosen light. Contrast is WCAG AA or better
+   for every text colour on desk, sheet and tint, in both themes. */
+
+:root {
+  color-scheme: light;
+  --desk: #eceeea;
+  --sheet: #ffffff;
+  --tint: #f3f5f2;
+  --ink: #17202b;
+  --graphite: #4d5866;
+  --rule: #d5d9d3;
+  --control: #747e89;
+  --stamp: #1e4d7a;
+  --stamp-hover: #163b5e;
+  --on-stamp: #ffffff;
+  --critical: #9b1c22;
+  --high: #a8400f;
+  --medium: #855700;
+  --low: #2f5d80;
+  --info: #56606c;
+  --pass: #276738;
+  --sheet-shadow: 0 1px 2px rgb(23 32 43 / 0.05), 0 12px 32px -16px rgb(23 32 43 / 0.16);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --desk: #0e1318;
+  --sheet: #161d25;
+  --tint: #1d2630;
+  --ink: #e3e7eb;
+  --graphite: #a3adb8;
+  --rule: #2b3540;
+  --control: #6e7a87;
+  --stamp: #8db5e2;
+  --stamp-hover: #aeccec;
+  --on-stamp: #0e1318;
+  --critical: #f28b85;
+  --high: #f0a06c;
+  --medium: #ddb451;
+  --low: #93bad9;
+  --info: #a3adb8;
+  --pass: #7dc393;
+  --sheet-shadow: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --desk: #0e1318;
+    --sheet: #161d25;
+    --tint: #1d2630;
+    --ink: #e3e7eb;
+    --graphite: #a3adb8;
+    --rule: #2b3540;
+    --control: #6e7a87;
+    --stamp: #8db5e2;
+    --stamp-hover: #aeccec;
+    --on-stamp: #0e1318;
+    --critical: #f28b85;
+    --high: #f0a06c;
+    --medium: #ddb451;
+    --low: #93bad9;
+    --info: #a3adb8;
+    --pass: #7dc393;
+    --sheet-shadow: none;
+  }
+}
+
+@layer base {
+  html {
+    background-color: var(--desk);
+    color: var(--ink);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  code,
+  kbd,
+  samp,
+  pre {
+    font-size: 0.875em;
+  }
+
+  :not(pre) > code {
+    padding: 0.0625rem 0.3125rem;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    background-color: var(--tint);
+    overflow-wrap: anywhere;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--stamp);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--stamp) 28%, transparent);
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+}
+
+@layer components {
+  .skip-link {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 50;
+    padding: 0.625rem 1rem;
+    border: 2px solid var(--stamp);
+    border-radius: 4px;
+    background-color: var(--sheet);
+    color: var(--ink);
+    font-weight: 600;
+    transform: translateY(-200%);
+  }
+
+  .skip-link:focus {
+    transform: none;
+  }
+
+  .sheet {
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    background-color: var(--sheet);
+    box-shadow: var(--sheet-shadow);
+  }
+
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    min-height: 2.75rem;
+    color: var(--ink);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+  }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    color: var(--graphite);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .nav-link:hover {
+    color: var(--ink);
+  }
+
+  .nav-link[aria-current="page"] {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--stamp);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.5rem;
+  }
+
+  .link {
+    color: var(--stamp);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  .link:hover {
+    text-decoration-thickness: 2px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0.5rem 1.125rem;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: var(--text-body);
+    font-weight: 600;
+    line-height: 1.25;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background-color 120ms ease,
+      border-color 120ms ease,
+      color 120ms ease;
+  }
+
+  .btn[aria-disabled="true"] {
+    cursor: progress;
+  }
+
+  .btn-primary {
+    border-color: var(--stamp);
+    background-color: var(--stamp);
+    color: var(--on-stamp);
+  }
+
+  .btn-primary:hover {
+    border-color: var(--stamp-hover);
+    background-color: var(--stamp-hover);
+  }
+
+  .btn-secondary {
+    border-color: var(--control);
+    background-color: var(--sheet);
+    color: var(--ink);
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--tint);
+  }
+
+  .btn-plain {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0 0.25rem;
+    color: var(--stamp);
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .btn-plain:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .label {
+    display: block;
+    margin-bottom: 0.375rem;
+    font-size: var(--text-small);
+    font-weight: 600;
+    line-height: var(--text-small--line-height);
+  }
+
+  .field {
+    display: block;
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--control);
+    border-radius: 4px;
+    background-color: var(--sheet);
+    color: var(--ink);
+    font: inherit;
+  }
+
+  .field:focus-visible {
+    border-color: var(--stamp);
+    outline-offset: 0;
+  }
+
+  .field[aria-invalid="true"] {
+    border-color: var(--critical);
+    box-shadow: inset 0 0 0 1px var(--critical);
+  }
+
+  .field-error {
+    display: flex;
+    gap: 0.375rem;
+    margin-top: 0.375rem;
+    color: var(--critical);
+    font-size: var(--text-small);
+    font-weight: 600;
+    line-height: var(--text-small--line-height);
+  }
+
+  .hint {
+    color: var(--graphite);
+    font-size: var(--text-caption);
+    line-height: var(--text-caption--line-height);
+  }
+
+  .reveal {
+    position: absolute;
+    top: 50%;
+    right: 0.25rem;
+    min-height: 2.25rem;
+    padding: 0 0.75rem;
+    border-radius: 3px;
+    color: var(--stamp);
+    font-size: var(--text-small);
+    font-weight: 600;
+    cursor: pointer;
+    translate: 0 -50%;
+  }
+
+  .reveal:hover {
+    background-color: var(--tint);
+  }
+
+  .notice {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background-color: var(--sheet);
+  }
+
+  .notice > svg {
+    flex: none;
+    margin-top: 0.1875rem;
+  }
+
+  .notice-error {
+    border-color: var(--critical);
+  }
+
+  .notice-error > svg {
+    color: var(--critical);
+  }
+
+  .notice-warning {
+    border-color: var(--medium);
+  }
+
+  .notice-warning > svg {
+    color: var(--medium);
+  }
+
+  .notice-success > svg {
+    color: var(--pass);
+  }
+
+  .notice-info > svg {
+    color: var(--stamp);
+  }
+
+  .theme-switch {
+    display: inline-flex;
+    gap: 2px;
+    padding: 2px;
+    border: 1px solid var(--control);
+    border-radius: 5px;
+    background-color: var(--sheet);
+  }
+
+  .theme-switch label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    min-width: 2.5rem;
+    min-height: 2.25rem;
+    padding: 0 0.625rem;
+    border-radius: 3px;
+    color: var(--graphite);
+    font-size: var(--text-caption);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .theme-switch label:hover {
+    color: var(--ink);
+  }
+
+  .theme-switch input:checked + label {
+    background-color: var(--tint);
+    box-shadow: inset 0 0 0 1px var(--rule);
+    color: var(--ink);
+  }
+
+  .theme-switch input:focus-visible + label {
+    outline: 3px solid var(--stamp);
+    outline-offset: 1px;
+  }
+
+  /* A ruled two-column list, like the schedule on an inspection certificate. */
+  .ledger > div {
+    display: grid;
+    gap: 0.25rem 1.5rem;
+    padding: 0.875rem 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .ledger > div:last-child {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .ledger dt {
+    font-weight: 600;
+  }
+
+  .ledger dd {
+    color: var(--graphite);
+  }
+
+  @media (width >= 40rem) {
+    .ledger > div {
+      grid-template-columns: 13rem 1fr;
+    }
+  }
+
+  .severity {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4375rem;
+    font-size: var(--text-small);
+    font-weight: 600;
+  }
+
+  .severity-critical { color: var(--critical); }
+  .severity-high { color: var(--high); }
+  .severity-medium { color: var(--medium); }
+  .severity-low { color: var(--low); }
+  .severity-info { color: var(--info); }
+  .severity-pass { color: var(--pass); }
+
+  .code-block {
+    overflow-x: auto;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    background-color: var(--tint);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  /* Always print the light theme. These selectors match the dark ones' specificity. */
+  :root,
+  :root[data-theme="dark"],
+  :root:not([data-theme="light"]) {
+    color-scheme: light;
+    --desk: #ffffff;
+    --sheet: #ffffff;
+    --tint: #f3f5f2;
+    --ink: #17202b;
+    --graphite: #4d5866;
+    --rule: #d5d9d3;
+    --stamp: #1e4d7a;
+    --critical: #9b1c22;
+    --high: #a8400f;
+    --medium: #855700;
+    --low: #2f5d80;
+    --info: #56606c;
+    --pass: #276738;
+    --sheet-shadow: none;
+  }
+
+  .no-print,
+  .skip-link {
+    display: none !important;
+  }
+}

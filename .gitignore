@@ -1,0 +1,24 @@
+# Secrets
+.env
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Django
+staticfiles/
+media/
+*.sqlite3
+
+# Built by `python manage.py tailwind build`
+static/css/site.css
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

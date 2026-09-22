@@ -1,0 +1,10 @@
+{% if messages %}
+<div class="mb-6 space-y-2" role="status">
+  {% for message in messages %}
+  <div class="notice notice-{{ message.level_tag }}">
+    {% if message.level_tag == "error" %}{% include "icons/critical.svg" %}{% elif message.level_tag == "success" %}{% include "icons/pass.svg" %}{% else %}{% include "icons/info.svg" %}{% endif %}
+    <p>{{ message }}</p>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}

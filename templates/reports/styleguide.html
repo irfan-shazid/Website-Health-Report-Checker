@@ -1,0 +1,112 @@
+{% extends "layouts/app.html" %}
+
+{% block title %}Style reference{% endblock %}
+
+{% block content %}
+<h1 class="text-h1 font-bold tracking-tight">Style reference</h1>
+<p class="mt-3 max-w-2xl text-lead text-graphite">Every token and component in one place. Switch the theme at the bottom of the page to check both. Only available while DEBUG is on.</p>
+
+<section class="mt-12" aria-labelledby="colors-heading">
+  <h2 id="colors-heading" class="text-h2 font-semibold">Colors</h2>
+  <div class="sheet mt-4 overflow-x-auto">
+    <table class="w-full min-w-[34rem] text-left text-small">
+      <thead class="text-graphite">
+        <tr class="border-b border-rule">
+          <th scope="col" class="px-4 py-3 font-semibold">Swatch</th>
+          <th scope="col" class="px-4 py-3 font-semibold">Token</th>
+          <th scope="col" class="px-4 py-3 font-semibold">Role</th>
+          <th scope="col" class="px-4 py-3 font-semibold">Light</th>
+          <th scope="col" class="px-4 py-3 font-semibold">Dark</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-rule">
+        <tr><td class="px-4 py-2.5"><span class="block h-6 w-10 rounded-sm border border-rule bg-desk"></span></td><td class="px-4 font-mono">desk</td><td class="px-4">Page background</td><td class="px-4 font-mono">#eceeea</td><td class="px-4 font-mono">#0e1318</td></tr>
+        <tr><td class="px-4 py-2.5"><span class="block h-6 w-10 rounded-sm border border-rule bg-sheet"></span></td><td class="px-4 font-mono">sheet</td><td class="px-4">Report sheet, form surfaces</td><td class="px-4 font-mono">#ffffff</td><td class="px-4 font-mono">#161d25</td></tr>
+        <tr><td class="px-4 py-2.5"><span class="block h-6 w-10 rounded-sm border border-rule bg-tint"></span></td><td class="px-4 font-mono">tint</td><td class="px-4">Code, selected and hover states</td><td class="px-4 font-mono">#f3f5f2</td><td class="px-4 font-mono">#1d2630</td></tr>
+        <tr><td class="px-4 py-2.5"><span class="block h-6 w-10 rounded-sm bg-ink"></span></td><td class="px-4 font-mono">ink</td><td class="px-4">Body text</td><td class="px-4 font-mono">#17202b</td><td class="px-4 font-mono">#e3e7eb</td></tr>
+        <tr><td class="px-4 py-2.5"><span class="block h-6 w-10 rounded-sm bg-graphite"></span></td><td class="px-4 font-mono">graphite</td><td class="px-4">Secondary text</td><td class="px-4 font-mono">#4d5866</td><td class="px-4 font-mono">#a3adb8</td></tr>
+        <tr><td class="px-4 py-2.5"><span class="block h-6 w-10 rounded-sm bg-rule"></span></td><td class="px-4 font-mono">rule</td><td class="px-4">Hairlines (decorative)</td><td class="px-4 font-mono">#d5d9d3</td><td class="px-4 font-mono">#2b3540</td></tr>
+        <tr><td class="px-4 py-2.5"><span class="block h-6 w-10 rounded-sm bg-control"></span></td><td class="px-4 font-mono">control</td><td class="px-4">Input borders</td><td class="px-4 font-mono">#747e89</td><td class="px-4 font-mono">#6e7a87</td></tr>
+        <tr><td class="px-4 py-2.5"><span class="block h-6 w-10 rounded-sm bg-stamp"></span></td><td class="px-4 font-mono">stamp</td><td class="px-4">Actions, links, passing seal</td><td class="px-4 font-mono">#1e4d7a</td><td class="px-4 font-mono">#8db5e2</td></tr>
+        <tr><td class="px-4 py-2.5"><span class="block h-6 w-10 rounded-sm bg-critical"></span></td><td class="px-4 font-mono">critical</td><td class="px-4">Critical, failing seal</td><td class="px-4 font-mono">#9b1c22</td><td class="px-4 font-mono">#f28b85</td></tr>
+        <tr><td class="px-4 py-2.5"><span class="block h-6 w-10 rounded-sm bg-high"></span></td><td class="px-4 font-mono">high</td><td class="px-4">High</td><td class="px-4 font-mono">#a8400f</td><td class="px-4 font-mono">#f0a06c</td></tr>
+        <tr><td class="px-4 py-2.5"><span class="block h-6 w-10 rounded-sm bg-medium"></span></td><td class="px-4 font-mono">medium</td><td class="px-4">Medium</td><td class="px-4 font-mono">#855700</td><td class="px-4 font-mono">#ddb451</td></tr>
+        <tr><td class="px-4 py-2.5"><span class="block h-6 w-10 rounded-sm bg-low"></span></td><td class="px-4 font-mono">low</td><td class="px-4">Low</td><td class="px-4 font-mono">#2f5d80</td><td class="px-4 font-mono">#93bad9</td></tr>
+        <tr><td class="px-4 py-2.5"><span class="block h-6 w-10 rounded-sm bg-info"></span></td><td class="px-4 font-mono">info</td><td class="px-4">Info</td><td class="px-4 font-mono">#56606c</td><td class="px-4 font-mono">#a3adb8</td></tr>
+        <tr><td class="px-4 py-2.5"><span class="block h-6 w-10 rounded-sm bg-pass"></span></td><td class="px-4 font-mono">pass</td><td class="px-4">Passed checks</td><td class="px-4 font-mono">#276738</td><td class="px-4 font-mono">#7dc393</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="mt-12" aria-labelledby="type-heading">
+  <h2 id="type-heading" class="text-h2 font-semibold">Type</h2>
+  <div class="sheet mt-4 divide-y divide-rule px-5 sm:px-8">
+    <div class="py-4"><p class="hint">Seal · 120px · 800</p><p class="text-seal font-extrabold text-stamp">B</p></div>
+    <div class="py-4"><p class="hint">Heading 1 · 30px · 700</p><p class="text-h1 font-bold tracking-tight">acme-bakery.co.uk</p></div>
+    <div class="py-4"><p class="hint">Heading 2 · 24px · 600</p><p class="text-h2 font-semibold">Problems found</p></div>
+    <div class="py-4"><p class="hint">Heading 3 · 20px · 600</p><p class="text-h3 font-semibold">High · 2</p></div>
+    <div class="py-4"><p class="hint">Lead · 18px</p><p class="text-lead">One critical problem limits this site to a D.</p></div>
+    <div class="py-4"><p class="hint">Body · 16px</p><p>Your site doesn't tell browsers to always use a secure connection, so a visitor on public Wi-Fi could be sent to an insecure copy.</p></div>
+    <div class="py-4"><p class="hint">Small · 15px</p><p class="text-small">Security headers · checked on the home page</p></div>
+    <div class="py-4"><p class="hint">Caption · 13px</p><p class="text-caption">Inspected 21 September 2026 at 13:40 UTC</p></div>
+    <div class="py-4"><p class="hint">Tabular figures</p><p class="text-h3 font-semibold tabular-nums">96 · 61 · 100 · 11</p></div>
+    <div class="py-4"><p class="hint">Monospace · technical content only</p><p class="font-mono text-small">Strict-Transport-Security: max-age=31536000; includeSubDomains</p></div>
+  </div>
+</section>
+
+<section class="mt-12" aria-labelledby="severity-heading">
+  <h2 id="severity-heading" class="text-h2 font-semibold">Severity</h2>
+  <p class="mt-1 text-graphite">Always an icon shape and a word, never color alone. The shapes stay distinct in black-and-white print.</p>
+  <div class="sheet mt-4 flex flex-wrap gap-x-8 gap-y-4 px-5 py-6 sm:px-8">
+    <span class="severity severity-critical">{% include "icons/critical.svg" %}Critical</span>
+    <span class="severity severity-high">{% include "icons/high.svg" %}High</span>
+    <span class="severity severity-medium">{% include "icons/medium.svg" %}Medium</span>
+    <span class="severity severity-low">{% include "icons/low.svg" %}Low</span>
+    <span class="severity severity-info">{% include "icons/info.svg" %}Info</span>
+    <span class="severity severity-pass">{% include "icons/pass.svg" %}Passed</span>
+  </div>
+</section>
+
+<section class="mt-12" aria-labelledby="controls-heading">
+  <h2 id="controls-heading" class="text-h2 font-semibold">Controls</h2>
+  <div class="sheet mt-4 space-y-8 px-5 py-6 sm:px-8">
+    <div class="flex flex-wrap gap-3">
+      <button type="button" class="btn btn-primary">Run scan</button>
+      <button type="button" class="btn btn-secondary">Download PDF</button>
+      <button type="button" class="btn-plain">Revoke share link</button>
+      <a class="link self-center" href="#colors-heading">A text link</a>
+    </div>
+    <div class="grid max-w-xl gap-5">
+      <div>
+        <label class="label" for="demo-url">Website address</label>
+        <input class="field" id="demo-url" type="url" placeholder="https://" aria-describedby="demo-url-hint">
+        <p class="hint mt-1.5" id="demo-url-hint">Include https:// or http://</p>
+      </div>
+      <div>
+        <label class="label" for="demo-invalid">Website address, with an error</label>
+        <input class="field" id="demo-invalid" type="url" value="acme bakery" aria-invalid="true" aria-describedby="demo-invalid-error">
+        <p class="field-error" id="demo-invalid-error">Enter a full web address, like https://example.com.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mt-12" aria-labelledby="notices-heading">
+  <h2 id="notices-heading" class="text-h2 font-semibold">Notices</h2>
+  <div class="mt-4 grid max-w-2xl gap-3">
+    <div class="notice notice-info">{% include "icons/info.svg" %}<p>Scanning takes about a minute. You can leave this page and come back.</p></div>
+    <div class="notice notice-success">{% include "icons/pass.svg" %}<p>Share link revoked. The old link no longer works.</p></div>
+    <div class="notice notice-warning">{% include "icons/high.svg" %}<p>2 more tries before sign-in is paused for 15 minutes.</p></div>
+    <div class="notice notice-error">{% include "icons/critical.svg" %}<p>We couldn't reach acme-bakery.co.uk. Check the address is right and the site is up, then try again.</p></div>
+  </div>
+</section>
+
+<section class="mt-12" aria-labelledby="code-heading">
+  <h2 id="code-heading" class="text-h2 font-semibold">Code and evidence</h2>
+  <div class="sheet mt-4 space-y-4 px-5 py-6 sm:px-8">
+    <p>Add the <code>Strict-Transport-Security</code> header to every HTTPS response.</p>
+    <pre class="code-block"><code>add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;</code></pre>
+  </div>
+</section>
+{% endblock %}

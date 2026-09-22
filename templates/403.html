@@ -1,0 +1,11 @@
+{% extends "layouts/plain.html" %}
+
+{% block title %}Access denied{% endblock %}
+
+{% block content %}
+<h1 class="text-h2 font-semibold">You don't have access to this page</h1>
+<p class="mt-3 text-graphite">You may be signed in with a different account. Sign out and back in, or go back to your scans.</p>
+<div class="mt-6 flex flex-wrap gap-3">
+  <a class="btn btn-primary" href="{% url 'dashboard' %}">Go to your scans</a>
+</div>
+{% endblock %}

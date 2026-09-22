@@ -1,0 +1,68 @@
+{% extends "layouts/plain.html" %}
+
+{% block title %}Sign in{% endblock %}
+
+{% block content %}
+<h1 class="text-h2 font-semibold">Sign in</h1>
+<p class="mt-1 text-graphite">Sign in to run scans and read reports.</p>
+
+{% if form.non_field_errors or paused_for %}
+<div class="notice notice-error mt-6" role="alert" tabindex="-1" data-focus-on-load>
+  {% include "icons/critical.svg" %}
+  <div class="space-y-1">
+    {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
+    {% if paused_for %}<p>Sign-in is paused after too many attempts. Try again in {{ paused_for }}.</p>{% endif %}
+  </div>
+</div>
+{% elif form.errors %}
+<div class="notice notice-error mt-6" role="alert" tabindex="-1" data-focus-on-load>
+  {% include "icons/critical.svg" %}
+  <p>Enter your username and password to sign in.</p>
+</div>
+{% endif %}
+
+{% if attempts_left %}
+<div class="notice notice-warning mt-3">
+  {% include "icons/high.svg" %}
+  <p>{{ attempts_left }} more {% if attempts_left == 1 %}try{% else %}tries{% endif %} before sign-in is paused for {{ pause_length }} minutes.</p>
+</div>
+{% endif %}
+
+<form class="mt-6 space-y-5" method="post" action="{% url 'login' %}" novalidate>
+  {% csrf_token %}
+  <input type="hidden" name="next" value="{{ next }}">
+
+  <div>
+    <label class="label" for="id_username">Username</label>
+    <input class="field" type="text" name="username" id="id_username"
+           value="{{ form.username.value|default:'' }}"
+           maxlength="{{ form.username.field.max_length }}"
+           autocomplete="username" autocapitalize="none" spellcheck="false" required
+           {% if form.username.errors %}aria-invalid="true" aria-describedby="id_username_error"{% elif not form.errors %}autofocus{% endif %}>
+    {% for error in form.username.errors %}
+    <p class="field-error" id="id_username_error">{{ error }}</p>
+    {% endfor %}
+  </div>
+
+  <div>
+    <label class="label" for="id_password">Password</label>
+    <div class="relative">
+      <input class="field pr-20" type="password" name="password" id="id_password"
+             autocomplete="current-password" required
+             aria-describedby="caps-lock-hint{% if form.password.errors %} id_password_error{% endif %}"
+             {% if form.password.errors %}aria-invalid="true"{% endif %}>
+      <button type="button" class="reveal" data-password-toggle aria-controls="id_password" hidden>
+        <span data-toggle-label>Show</span><span class="sr-only"> password</span>
+      </button>
+    </div>
+    {% for error in form.password.errors %}
+    <p class="field-error" id="id_password_error">{{ error }}</p>
+    {% endfor %}
+    <p class="hint mt-1.5 empty:mt-0" id="caps-lock-hint" data-caps-lock-hint="id_password" aria-live="polite"></p>
+  </div>
+
+  <button type="submit" class="btn btn-primary w-full" data-pending-label="Signing in…">Sign in</button>
+</form>
+
+<p class="hint mt-6">Forgotten your password? Reset it on the server with <code class="whitespace-nowrap">python manage.py changepassword</code>.</p>
+{% endblock %}
