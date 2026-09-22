@@ -18,7 +18,7 @@ def client_ip(request):
                 return str(ipaddress.ip_address(forwarded[-hops]))
             except ValueError:
                 pass
-    return request.META.get("REMOTE_ADDR", "")
+    return request.META.get("REMOTE_ADDR") or "unknown"
 
 
 def client_key(request):

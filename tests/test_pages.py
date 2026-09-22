@@ -1,6 +1,6 @@
 import pytest
 from django.template.loader import render_to_string
-from django.test import RequestFactory
+from django.test import Client, RequestFactory
 
 from reports.views import styleguide
 
@@ -96,3 +96,23 @@ def test_favicon_ico_points_at_the_svg_icon(client):
 
     assert response.status_code == 302
     assert response["Location"] == "/static/img/favicon.svg"
+
+
+def test_browser_toolbar_colour_matches_each_layout(signed_in_client):
+    sign_in_page = Client().get("/sign-in/").content.decode()
+    dashboard = signed_in_client.get("/").content.decode()
+
+    assert '<meta name="theme-color" content="#eceeea" media="(prefers-color-scheme: light)"' in sign_in_page
+    assert '<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)"' in dashboard
+    assert dashboard.count('name="theme-color"') == 2
+
+
+def test_admin_uses_the_app_branding(signed_in_client, operator):
+    operator.is_staff = True
+    operator.is_superuser = True
+    operator.save()
+
+    html = signed_in_client.get("/admin/").content.decode()
+
+    assert 'href="/static/css/admin.css"' in html
+    assert 'Site Health Report <span class="brand-suffix">administration</span>' in html

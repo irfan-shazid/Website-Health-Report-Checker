@@ -6,4 +6,5 @@ class ReportsConfig(AppConfig):
     name = "reports"
 
     def ready(self):
+        from config import checks  # noqa: F401  (registers the setup checks)
         from reports import signin  # noqa: F401  (connects the sign-in signal receivers)

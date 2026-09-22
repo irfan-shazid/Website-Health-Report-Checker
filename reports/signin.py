@@ -9,13 +9,13 @@ from datetime import timedelta
 
 from django.conf import settings
 from django.contrib.auth.backends import ModelBackend
-from django.contrib.auth.signals import user_logged_in, user_login_failed
+from django.contrib.auth.signals import user_logged_in, user_logged_out, user_login_failed
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.dispatch import receiver
 from django.utils import timezone
 
-from reports.ratelimit import client_key
+from reports.ratelimit import client_ip, client_key
 from scanner.models import LoginAttempt
 
 logger = logging.getLogger(__name__)
@@ -91,3 +91,10 @@ def clear_failed_sign_ins(sender, request, user, **kwargs):
     LoginAttempt.objects.filter(
         Q(client=client_key(request)) | Q(username=normalize_username(user.get_username()))
     ).delete()
+    logger.info("Signed in: %r from %s", user.get_username(), client_ip(request))
+
+
+@receiver(user_logged_out)
+def log_sign_out(sender, request, user, **kwargs):
+    if request is not None and user is not None:
+        logger.info("Signed out: %r from %s", user.get_username(), client_ip(request))

@@ -26,8 +26,15 @@
   }
 
   function applyTheme(theme) {
-    if (theme === "light" || theme === "dark") root.dataset.theme = theme;
+    var explicit = theme === "light" || theme === "dark";
+    if (explicit) root.dataset.theme = theme;
     else delete root.dataset.theme;
+
+    // Browser toolbar colour: the chosen theme's, or back to following the system.
+    document.querySelectorAll('meta[name="theme-color"]').forEach(function (meta) {
+      var systemScheme = (meta.media || "").indexOf("dark") >= 0 ? "dark" : "light";
+      meta.content = meta.getAttribute("data-" + (explicit ? theme : systemScheme));
+    });
   }
 
   function checkThemeRadios(theme) {

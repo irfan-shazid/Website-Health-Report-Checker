@@ -221,3 +221,34 @@ def test_sign_in_form_is_protected_against_cross_site_posts(operator):
     assert response.status_code == 403
     assert "That form has expired" in response.content.decode()
     assert not is_signed_in(client)
+
+
+def test_being_sent_to_sign_in_explains_why(client):
+    html = client.get("/sign-in/?next=/styleguide/").content.decode()
+
+    assert "Sign in to continue to that page." in html
+
+
+def test_plain_visit_to_sign_in_has_the_usual_intro(client):
+    html = client.get("/sign-in/").content.decode()
+
+    assert "Sign in to run scans and read reports." in html
+
+
+def test_sign_ins_and_sign_outs_are_logged(client, operator, caplog):
+    caplog.set_level("INFO", logger="reports.signin")
+
+    sign_in(client, password=PASSWORD, ip="198.51.100.9")
+    client.post("/sign-out/", REMOTE_ADDR="198.51.100.9")
+
+    assert "Signed in: 'operator' from 198.51.100.9" in caplog.text
+    assert "Signed out: 'operator' from 198.51.100.9" in caplog.text
+
+
+def test_lockouts_are_logged(client, operator, caplog):
+    caplog.set_level("WARNING", logger="reports.signin")
+
+    for _ in range(5):
+        sign_in(client)
+
+    assert "Sign-in paused for client 203.0.113.10, username 'operator'" in caplog.text

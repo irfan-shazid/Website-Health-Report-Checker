@@ -102,3 +102,12 @@ class TestMiddleware:
         statuses = [signed_in_client.get("/", REMOTE_ADDR=f"198.51.100.{n}").status_code for n in range(4)]
 
         assert statuses == [200, 200, 200, 429]
+
+
+def test_missing_connection_address_is_reported_as_unknown(settings):
+    settings.TRUSTED_PROXY_HOPS = 0
+    request = RequestFactory().get("/")
+    del request.META["REMOTE_ADDR"]
+
+    assert client_ip(request) == "unknown"
+    assert client_key(request) == "unknown"

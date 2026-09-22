@@ -1,0 +1,165 @@
+/* Brings Django's admin in line with the app: same palette, same typeface.
+   Selectors mirror admin/css/base.css and dark_mode.css so the admin's own
+   theme toggle (which shares the "theme" localStorage key with the app) still works. */
+
+@font-face {
+  font-family: "Public Sans";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/public-sans-latin-ext-wght-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Public Sans";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/public-sans-latin-wght-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root,
+html[data-theme="light"] {
+  --primary: #1e4d7a;
+  --secondary: #17202b;
+  --accent: #ffffff;
+  --primary-fg: #ffffff;
+
+  --body-fg: #17202b;
+  --body-bg: #ffffff;
+  --body-quiet-color: #4d5866;
+  --body-medium-color: #2e3946;
+  --body-loud-color: #0b1017;
+
+  --header-color: #d5d9d3;
+  --header-branding-color: #ffffff;
+  --header-bg: #17202b;
+  --header-link-color: #ffffff;
+
+  --breadcrumbs-fg: #d3e0ee;
+  --breadcrumbs-link-fg: #ffffff;
+  --breadcrumbs-bg: #163b5e;
+
+  --link-fg: #1e4d7a;
+  --link-hover-color: #163b5e;
+  --link-selected-fg: #1e4d7a;
+
+  --hairline-color: #e3e6e1;
+  --border-color: #d5d9d3;
+  --error-fg: #9b1c22;
+
+  --darkened-bg: #f3f5f2;
+  --selected-bg: #e3e6e1;
+  --selected-row: #e8eff6;
+
+  --button-bg: #1e4d7a;
+  --button-hover-bg: #163b5e;
+  --default-button-bg: #163b5e;
+  --default-button-hover-bg: #1e4d7a;
+  --delete-button-bg: #9b1c22;
+  --delete-button-hover-bg: #7c161b;
+
+  --font-family-primary: "Public Sans", system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: #1f4468;
+    --secondary: #161d25;
+    --primary-fg: #f3f6f9;
+
+    --body-fg: #e3e7eb;
+    --body-bg: #0e1318;
+    --body-quiet-color: #a3adb8;
+    --body-medium-color: #c9ced4;
+    --body-loud-color: #ffffff;
+
+    --header-color: #c9ced4;
+    --header-bg: #161d25;
+    --header-link-color: #f3f6f9;
+
+    --breadcrumbs-fg: #c9d8e8;
+    --breadcrumbs-link-fg: #ffffff;
+    --breadcrumbs-bg: #1a2b3d;
+
+    --link-fg: #8db5e2;
+    --link-hover-color: #aeccec;
+    --link-selected-fg: #8db5e2;
+
+    --hairline-color: #2b3540;
+    --border-color: #3a4552;
+    --error-fg: #f28b85;
+
+    --darkened-bg: #161d25;
+    --selected-bg: #1d2630;
+    --selected-row: #1c3045;
+
+    --button-bg: #2d5f93;
+    --button-hover-bg: #24507e;
+    --default-button-bg: #24507e;
+    --default-button-hover-bg: #2d5f93;
+    --delete-button-bg: #a8262d;
+    --delete-button-hover-bg: #8c1f25;
+  }
+}
+
+html[data-theme="dark"] {
+  --primary: #1f4468;
+  --secondary: #161d25;
+  --primary-fg: #f3f6f9;
+
+  --body-fg: #e3e7eb;
+  --body-bg: #0e1318;
+  --body-quiet-color: #a3adb8;
+  --body-medium-color: #c9ced4;
+  --body-loud-color: #ffffff;
+
+  --header-color: #c9ced4;
+  --header-bg: #161d25;
+  --header-link-color: #f3f6f9;
+
+  --breadcrumbs-fg: #c9d8e8;
+  --breadcrumbs-link-fg: #ffffff;
+  --breadcrumbs-bg: #1a2b3d;
+
+  --link-fg: #8db5e2;
+  --link-hover-color: #aeccec;
+  --link-selected-fg: #8db5e2;
+
+  --hairline-color: #2b3540;
+  --border-color: #3a4552;
+  --error-fg: #f28b85;
+
+  --darkened-bg: #161d25;
+  --selected-bg: #1d2630;
+  --selected-row: #1c3045;
+
+  --button-bg: #2d5f93;
+  --button-hover-bg: #24507e;
+  --default-button-bg: #24507e;
+  --default-button-hover-bg: #2d5f93;
+  --delete-button-bg: #a8262d;
+  --delete-button-hover-bg: #8c1f25;
+}
+
+#site-name a:link,
+#site-name a:visited {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+#site-name .brand-seal {
+  width: 1.75rem;
+  height: 1.75rem;
+  flex: none;
+}
+
+#site-name .brand-suffix {
+  color: var(--header-color);
+  font-weight: 400;
+}

@@ -381,6 +381,14 @@
     outline-offset: 0;
   }
 
+  .field:-webkit-autofill,
+  .field:-webkit-autofill:hover,
+  .field:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--ink);
+    caret-color: var(--ink);
+    box-shadow: 0 0 0 100vmax var(--tint) inset;
+  }
+
   .field[aria-invalid="true"] {
     border-color: var(--critical);
     box-shadow: inset 0 0 0 1px var(--critical);
@@ -558,6 +566,24 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .theme-switch input:checked + label {
+    background-color: Highlight;
+    color: HighlightText;
+    forced-color-adjust: none;
+  }
+
+  .btn-plain,
+  .reveal {
+    border: 1px solid ButtonText;
+  }
+
+  .skip-link:focus,
+  .field[aria-invalid="true"] {
+    border-width: 2px;
   }
 }
 

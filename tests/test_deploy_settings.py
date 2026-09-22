@@ -16,6 +16,7 @@ PRODUCTION_ENV = {
     "DATABASE_URL_DIRECT": "postgresql://app:pw@ep-x.example.neon.tech/neondb?sslmode=require",
     "TRUSTED_PROXY_HOPS": "0",
     "SECURE_HSTS_PRELOAD": "False",
+    "SCANNER_CONTACT_URL": "https://reports.example.com/about",
 }
 
 
@@ -24,6 +25,7 @@ def manage(*args, **env):
         [sys.executable, "manage.py", *args],
         cwd=settings.BASE_DIR,
         env={**os.environ, **PRODUCTION_ENV, **env},
+        stdin=subprocess.DEVNULL,
         capture_output=True,
         text=True,
         timeout=120,

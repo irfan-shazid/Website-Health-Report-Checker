@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
+{% block theme_color %}
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" data-light="#ffffff" data-dark="#161d25">
+<meta name="theme-color" content="#161d25" media="(prefers-color-scheme: dark)" data-light="#ffffff" data-dark="#161d25">
+{% endblock %}
+
 {% block body %}
 <div class="flex min-h-dvh flex-col">
   <header class="border-b border-rule bg-sheet">
