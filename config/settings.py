@@ -14,7 +14,13 @@ from config.database import database_config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-load_dotenv(BASE_DIR / ".env")
+# Vercel sets VERCEL=1 at build time and at runtime.
+ON_VERCEL = bool(os.environ.get("VERCEL"))
+
+# A local .env must never leak into a deployment (it usually has DEBUG=True),
+# so on Vercel only the project's environment variables count.
+if not ON_VERCEL:
+    load_dotenv(BASE_DIR / ".env")
 
 RUNNING_TESTS = "pytest" in sys.modules
 
@@ -37,13 +43,21 @@ if not SECRET_KEY:
 DEBUG = env_bool("DEBUG", default=False)
 
 ALLOWED_HOSTS = env_list("ALLOWED_HOSTS")
+if ON_VERCEL:
+    # This deployment's own URLs: the unique deployment URL, the branch URL and
+    # the production domain. Other custom domains go in ALLOWED_HOSTS.
+    for name in ("VERCEL_URL", "VERCEL_BRANCH_URL", "VERCEL_PROJECT_PRODUCTION_URL"):
+        host = os.environ.get(name)
+        if host and host not in ALLOWED_HOSTS:
+            ALLOWED_HOSTS.append(host)
 
 CSRF_TRUSTED_ORIGINS = env_list("CSRF_TRUSTED_ORIGINS")
 
 # How many reverse proxies (load balancer, CDN) sit in front of the app and
 # append to X-Forwarded-For. 0 means clients connect directly; the header is
 # then ignored so nobody can spoof their address to dodge rate limits.
-TRUSTED_PROXY_HOPS = int(os.environ.get("TRUSTED_PROXY_HOPS") or 0)
+# Vercel's edge is one hop, and it overwrites X-Forwarded-For so it can't be spoofed.
+TRUSTED_PROXY_HOPS = int(os.environ.get("TRUSTED_PROXY_HOPS") or (1 if ON_VERCEL else 0))
 
 
 # Application definition
@@ -181,8 +195,9 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files, served by WhiteNoise. static/css/site.css is built by
-# `python manage.py tailwind build` and must exist before collectstatic.
+# Static files. On Vercel, collectstatic runs automatically during the build and
+# the CDN serves the results; WhiteNoise serves them everywhere else.
+# static/css/site.css is built by `python manage.py tailwind build` and committed.
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
@@ -192,6 +207,9 @@ STORAGES = {
     "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
     "staticfiles": {"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"},
 }
+# If a fingerprinted name is ever missing from the manifest, link the plain file
+# (collectstatic keeps both) instead of failing every page with a 500.
+WHITENOISE_MANIFEST_STRICT = False
 
 
 # Scanner

@@ -21,7 +21,7 @@ def _host(url):
 @register("config")
 def check_neon_urls(app_configs, **kwargs):
     pooled_host = _host(os.environ.get("DATABASE_URL", ""))
-    direct_host = _host(os.environ.get("DATABASE_URL_DIRECT", ""))
+    direct_host = _host(os.environ.get("DATABASE_URL_DIRECT") or os.environ.get("DATABASE_URL_UNPOOLED", ""))
     issues = []
     if pooled_host.endswith(".neon.tech") and "-pooler" not in pooled_host:
         issues.append(
@@ -35,7 +35,7 @@ def check_neon_urls(app_configs, **kwargs):
     if "-pooler" in direct_host:
         issues.append(
             Warning(
-                "DATABASE_URL_DIRECT points at Neon's pooled endpoint.",
+                "DATABASE_URL_DIRECT (or DATABASE_URL_UNPOOLED) points at Neon's pooled endpoint.",
                 hint="Migrations and tests need the direct connection string: switch connection "
                 "pooling off in Neon and copy that string (no '-pooler' in the host).",
                 id="config.W002",

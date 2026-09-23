@@ -20,11 +20,16 @@ PRODUCTION_ENV = {
 }
 
 
-def manage(*args, **env):
+def manage(*args, drop=(), **env):
+    # `drop` removes inherited variables; explicit overrides are applied afterwards.
+    environment = {**os.environ, **PRODUCTION_ENV}
+    for name in drop:
+        environment.pop(name, None)
+    environment.update(env)
     return subprocess.run(
         [sys.executable, "manage.py", *args],
         cwd=settings.BASE_DIR,
-        env={**os.environ, **PRODUCTION_ENV, **env},
+        env=environment,
         stdin=subprocess.DEVNULL,
         capture_output=True,
         text=True,
@@ -32,9 +37,9 @@ def manage(*args, **env):
     )
 
 
-def production_setting(names, **env):
+def production_setting(names, drop=(), **env):
     code = f"from django.conf import settings as s; import json; print(json.dumps({{n: getattr(s, n, None) for n in {names!r}}}))"
-    result = manage("shell", "-c", code, **env)
+    result = manage("shell", "-c", code, drop=drop, **env)
     assert result.returncode == 0, result.stderr
     return json.loads(result.stdout.strip().splitlines()[-1])
 

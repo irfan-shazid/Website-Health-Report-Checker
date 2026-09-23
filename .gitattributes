@@ -1,0 +1,3 @@
+# The built stylesheet is committed so Vercel never has to download Tailwind.
+# Keep its bytes exactly as Tailwind writes them.
+static/css/site.css -text -diff linguist-generated

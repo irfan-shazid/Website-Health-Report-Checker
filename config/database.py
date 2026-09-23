@@ -14,6 +14,7 @@ DIRECT_COMMANDS = frozenset(
         "makemigrations",
         "migrate",
         "optimizemigration",
+        "predeploy",
         "showmigrations",
         "sqlmigrate",
         "squashmigrations",
@@ -32,11 +33,17 @@ def use_direct_connection(argv, environ, running_tests=False):
 
 def database_config(argv, environ, running_tests=False):
     direct = use_direct_connection(argv, environ, running_tests)
-    var = "DATABASE_URL_DIRECT" if direct else "DATABASE_URL"
+    if direct:
+        # Neon's Vercel integration names the direct string DATABASE_URL_UNPOOLED.
+        var = "DATABASE_URL_DIRECT" if environ.get("DATABASE_URL_DIRECT") else "DATABASE_URL_UNPOOLED"
+    else:
+        var = "DATABASE_URL"
     url = environ.get(var)
     if not url:
+        name = "DATABASE_URL_DIRECT (or DATABASE_URL_UNPOOLED)" if direct else var
         raise ImproperlyConfigured(
-            f"{var} is not set. Add your Neon connection strings to .env (see .env.example)."
+            f"{name} is not set. Add your Neon connection strings to .env locally, "
+            "or to the project's environment variables on Vercel (see .env.example)."
         )
 
     config = dj_database_url.parse(

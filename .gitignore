@@ -1,5 +1,7 @@
-# Secrets
+# Secrets (`vercel env pull` writes .env.*.local files)
 .env
+.env.*
+!.env.example
 
 # Python
 .venv/
@@ -14,8 +16,8 @@ staticfiles/
 media/
 *.sqlite3
 
-# Built by `python manage.py tailwind build`
-static/css/site.css
+# Vercel CLI project link
+.vercel/
 
 # Editors and OS
 .vscode/

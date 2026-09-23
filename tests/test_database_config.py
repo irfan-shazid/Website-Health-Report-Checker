@@ -46,7 +46,7 @@ def test_no_subcommand_uses_the_pooled_endpoint():
 
 
 def test_missing_url_explains_what_to_set():
-    with pytest.raises(ImproperlyConfigured, match="DATABASE_URL_DIRECT is not set"):
+    with pytest.raises(ImproperlyConfigured, match=r"DATABASE_URL_DIRECT \(or DATABASE_URL_UNPOOLED\) is not set"):
         database_config(["manage.py", "migrate"], {"DATABASE_URL": POOLED})
 
 
@@ -74,3 +74,21 @@ def test_neon_channel_binding_option_is_passed_through():
     env = {"DATABASE_URL": POOLED + "&channel_binding=require"}
 
     assert database_config(["manage.py", "runserver"], env)["OPTIONS"]["channel_binding"] == "require"
+
+
+def test_neon_vercel_integration_name_for_the_direct_url_is_accepted():
+    env = {"DATABASE_URL": POOLED, "DATABASE_URL_UNPOOLED": DIRECT}
+
+    config = database_config(["manage.py", "migrate"], env)
+
+    assert config["HOST"] == "ep-cool-123.eu-central-1.aws.neon.tech"
+
+
+def test_explicit_direct_url_wins_over_the_integration_name():
+    env = {**ENV, "DATABASE_URL_UNPOOLED": "postgresql://x:y@other.neon.tech/db?sslmode=require"}
+
+    assert database_config(["manage.py", "migrate"], env)["HOST"] == "ep-cool-123.eu-central-1.aws.neon.tech"
+
+
+def test_predeploy_uses_the_direct_endpoint():
+    assert database_config(["manage.py", "predeploy"], ENV)["HOST"] == "ep-cool-123.eu-central-1.aws.neon.tech"
